@@ -2,7 +2,7 @@ import streamlit as st
 from io import BytesIO
 from datetime import datetime
 
-st.set_page_config(page_title="LLMS.txt Builder", page_icon="🧩", layout="centered")
+st.set_page_config(page_title="LLMS.txt Builder", page_icon="364704cc-6899-4fc3-b37c-29dbfd0a4f3f.png", layout="centered")
 
 # ------------- Helpers & State -------------
 def init_state():
