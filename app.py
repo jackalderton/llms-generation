@@ -145,9 +145,6 @@ for i, group in enumerate(st.session_state.groups):
         if bottom_buttons[0].button("➕ Page", key=f"add_page_bottom_{i}", help="Add a page to this group"):
             add_page(i)
             st.rerun()
-        if bottom_buttons[1].button("➖ Page", key=f"remove_page_bottom_{i}", help="Remove the last page in this group"):
-            remove_page(i, len(group["pages"]) - 1)
-            st.rerun()
 
 st.markdown("")
 add_cols = st.columns([1, 1])
