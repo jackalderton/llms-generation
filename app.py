@@ -70,8 +70,8 @@ def build_llms_text(client, groups) -> str:
 init_state()
 
 # ------------- UI -------------
-st.title("🧩 LLMS.txt Builder")
-st.caption("Create and download a structured LLMS.txt with groups and pages. Use +/– to add or remove items.")
+st.title("🤖 LLMS.txt Builder")
+st.caption("Create and download a structured LLMS.txt with groups and pages. Use +/– to add or remove items. Created by Jack Alderton")
 
 with st.expander("Client details", expanded=True):
     c1, c2 = st.columns([1, 1])
