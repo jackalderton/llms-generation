@@ -2,7 +2,7 @@ import streamlit as st
 from io import BytesIO
 from datetime import datetime
 
-st.set_page_config(page_title="LLMS.txt Builder", page_icon="364704cc-6899-4fc3-b37c-29dbfd0a4f3f.png", layout="centered")
+st.set_page_config(page_title="LLMS.txt Builder", page_icon="364704cc-6899-4fc3-b37c-29dbfd0a4f3f.png", layout="wide")
 
 # ------------- Helpers & State -------------
 def init_state():
@@ -57,7 +57,10 @@ def build_llms_text(client, groups) -> str:
             pn = sanitize(p["page_name"]) or "{Page name}"
             pu = sanitize(p["page_url"]) or "{Page URL}"
             pd = sanitize(p["page_desc"]) or "{Page description}"
-            lines.append(f"- [{pn}]({pu}): {pd}")
+            if pd:
+                lines.append(f"- [{pn}]({pu}): {pd}")
+            else:
+                lines.append(f"- [{pn}]({pu})")
         lines.append("")  # blank line after each group
 
     lines.append("## AI Usage")
@@ -107,12 +110,6 @@ for i, group in enumerate(st.session_state.groups):
             key=f"group_name_{i}",
             placeholder="e.g., Product Pages"
         )
-        if top[1].button("➕ Page", key=f"add_page_{i}", help="Add a page to this group"):
-            add_page(i)
-            st.rerun()
-        if top[2].button("➖ Page", key=f"remove_page_{i}", help="Remove the last page in this group"):
-            remove_page(i, len(group["pages"]) - 1)
-            st.rerun()
         if top[3].button("🗑️ Group", key=f"delete_group_{i}", help="Delete this group"):
             remove_group(i)
             st.rerun()
@@ -142,6 +139,15 @@ for i, group in enumerate(st.session_state.groups):
                 if cols[3].button("➖", key=f"remove_page_single_{i}_{j}", help="Remove this page"):
                     remove_page(i, j)
                     st.rerun()
+
+        # 👉 Add Page / Remove Page buttons at the BOTTOM of group container
+        bottom_buttons = st.columns([1, 1])
+        if bottom_buttons[0].button("➕ Page", key=f"add_page_bottom_{i}", help="Add a page to this group"):
+            add_page(i)
+            st.rerun()
+        if bottom_buttons[1].button("➖ Page", key=f"remove_page_bottom_{i}", help="Remove the last page in this group"):
+            remove_page(i, len(group["pages"]) - 1)
+            st.rerun()
 
 st.markdown("")
 add_cols = st.columns([1, 1])
