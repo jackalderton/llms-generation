@@ -130,12 +130,13 @@ for i, group in enumerate(st.session_state.groups):
                     key=f"page_url_{i}_{j}",
                     placeholder="https://www.example.com/pricing"
                 )
-                st.session_state.groups[i]["pages"][j]["page_desc"] = cols[2].text_input(
+                st.session_state.groups[i]["pages"][j]["page_desc"] = cols[2].text_area(
                     f"Page description (Group {i+1}, Page {j+1})",
                     value=page["page_desc"],
                     key=f"page_desc_{i}_{j}",
-                    placeholder="Short description of the page"
-                )
+                    placeholder="Short description of the page",
+                    height=70
+)
                 if cols[3].button("➖", key=f"remove_page_single_{i}_{j}", help="Remove this page"):
                     remove_page(i, j)
                     st.rerun()
