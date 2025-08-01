@@ -35,7 +35,20 @@ st.markdown(
         border-radius: 6px !important;
         border: 1px solid #ddd !important;
     }
+    /* Fix invisible button text */
+    button[kind="primary"], button[kind="secondary"] {
+        color: #ffffff !important;
+        }
 
+    /* Optional: improve button background and hover */
+    button[kind="primary"] {
+        background-color: #4E4C9C !important;
+        border: none !important;
+        transition: background-color 0.2s ease-in-out;
+    }
+    button[kind="primary"]:hover {
+        background-color: #6E6BB8 !important;
+    }
     /* Hover state for inputs */
     .stTextInput input:hover,
     .stTextArea textarea:hover {
@@ -50,20 +63,6 @@ st.markdown(
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         color: #222222;
-    }
-/* Fix invisible button text */
-button[kind="primary"], button[kind="secondary"] {
-    color: #ffffff !important;
-}
-
-/* Optional: improve button background and hover */
-    button[kind="primary"] {
-    background-color: #4E4C9C !important;
-    border: none !important;
-    transition: background-color 0.2s ease-in-out;
-    }
-    button[kind="primary"]:hover {
-    background-color: #6E6BB8 !important;
     }
 
     /* Header and title text */
