@@ -117,7 +117,7 @@ for i, group in enumerate(st.session_state.groups):
         st.markdown("**Pages in this group**")
         for j, page in enumerate(group["pages"]):
             with st.container():
-                cols = st.columns([3, 4, 4, 1])
+                cols = st.columns([3, 3, 6, 1])
                 st.session_state.groups[i]["pages"][j]["page_name"] = cols[0].text_input(
                     f"Page name (Group {i+1}, Page {j+1})",
                     value=page["page_name"],
