@@ -172,5 +172,3 @@ with dl_col1:
     )
 with dl_col2:
     st.caption(f"Generated {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC")
-
-st.success("Tip: You can leave fields blank while drafting; placeholders will be used where helpful.")
