@@ -56,7 +56,7 @@ def build_llms_text(client, groups) -> str:
         for p in g["pages"]:
             pn = sanitize(p["page_name"]) or "{Page name}"
             pu = sanitize(p["page_url"]) or "{Page URL}"
-            pd = sanitize(p["page_desc"]) or "{Page description}"
+            pd = sanitize(p["page_desc"])
             if pd:
                 lines.append(f"- [{pn}]({pu}): {pd}")
             else:
