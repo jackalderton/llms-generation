@@ -2,6 +2,30 @@ import streamlit as st
 from io import BytesIO
 from datetime import datetime
 
+st.markdown(
+    """
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+
+      .stApp {
+        background: #595F72;
+        font-family: 'Lexend', sans-serif;
+        color: #ffffff;
+      }
+      html, body, [class*="css"] {
+        font-family: 'Lexend', sans-serif;
+      }
+      /* Optionally style containers for better contrast */
+      div[data-testid="stContainer"] > div {
+        background-color: rgba(255,255,255,0.9);
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.set_page_config(page_title="LLMS.txt Builder", page_icon="364704cc-6899-4fc3-b37c-29dbfd0a4f3f.png", layout="wide")
 
 # ------------- Helpers & State -------------
