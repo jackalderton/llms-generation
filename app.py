@@ -4,117 +4,92 @@ from datetime import datetime
 
 st.set_page_config(page_title="LLMS.txt Builder", page_icon="JAFavicon.png", layout="wide")
 
-# -------------------------
-# Force Dark Mode CSS
-# -------------------------
-st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+# ---- Custom CSS ----
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-/* Global */
-html, body, [data-testid="stAppViewContainer"] {
-    background-color: #0e1117 !important;
-    color: #E0E0E0 !important;
-    font-family: 'Montserrat', sans-serif;
-}
+    /* General font settings without breaking icons */
+    body, h1, h2, h3, p, label {
+        font-family: 'Montserrat', sans-serif;
+        color: #E0E0E0;
+    }
 
-/* Titles and text */
-h1, h2, h3, p, label, span {
-    font-family: 'Montserrat', sans-serif !important;
-    color: #E0E0E0 !important;
-}
+    /* Restore Material Icons font for icon elements */
+    .material-icons,
+    [class*="material-icons"],
+    [data-testid="stExpanderToggleIcon"] {
+        font-family: 'Material Icons' !important;
+        font-weight: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        text-transform: none;
+        white-space: nowrap;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
 
-.st-emotion-cache-1j0k826 {
-    text-align: center;
-    color: #4A90E2 !important;
-    font-size: 3em;
-    padding-bottom: 0.5em;
-    border-bottom: 2px solid #4A90E2;
-    font-family: 'Montserrat', sans-serif;
-}
+    /* Sidebar styling */
+    [data-testid="stSidebar"] {
+        background-color: #1a1e24;
+        border-right: 1px solid #4A90E2;
+    }
 
-/* Sidebar */
-[data-testid="stSidebar"] {
-    background-color: #1a1e24 !important;
-    border-right: 1px solid #4A90E2;
-}
-.streamlit-expanderHeader {
-    background-color: #363945 !important;
-    border-radius: 8px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    border: none;
-    font-weight: bold;
-    color: #E0E0E0 !important;
-}
+    /* Expander headers */
+    .streamlit-expanderHeader {
+        background-color: #363945;
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #E0E0E0;
+        border: none;
+    }
 
-/* Buttons */
-.stButton>button {
-    width: 100%;
-    background-color: #323640 !important;
-    color: #E0E0E0 !important;
-    border: 1px solid #4A90E2;
-    border-radius: 8px;
-    padding: 10px;
-    transition: background-color 0.3s, color 0.3s;
-}
-.stButton>button:hover {
-    background-color: #4A90E2 !important;
-    color: white !important;
-    border-color: white;
-}
+    /* Buttons */
+    .stButton>button {
+        width: 100%;
+        background-color: #323640;
+        color: #E0E0E0;
+        border: 1px solid #4A90E2;
+        border-radius: 8px;
+        padding: 10px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    .stButton>button:hover {
+        background-color: #4A90E2;
+        color: white;
+        border-color: white;
+    }
 
-/* Tabs (class names may change between Streamlit versions) */
-.st-emotion-cache-1cypcdb {
-    background-color: #323640 !important;
-}
-.st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a {
-    color: #E0E0E0 !important;
-}
-.st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a[data-selected="true"] {
-    color: #4A90E2 !important;
-    border-bottom: 3px solid #4A90E2;
-}
+    /* Tab styling */
+    .st-emotion-cache-1cypcdb {
+        background-color: #323640;
+    }
+    .st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a {
+        color: #E0E0E0;
+    }
+    .st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a[data-selected="true"] {
+        color: #4A90E2;
+        border-bottom: 3px solid #4A90E2;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-/* Inputs and textareas */
-.stTextInput>div>div>input,
-.stTextArea>div>textarea {
-    background-color: #1a1e24 !important;
-    color: #E0E0E0 !important;
-    border: 1px solid #4A90E2 !important;
-}
-
-/* Code blocks */
-[data-testid="stCodeBlock"] {
-    background-color: #1a1e24 !important;
-    border-radius: 8px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# ------------- Helpers & State -------------
+# ---- State Init ----
 def init_state():
     if "client" not in st.session_state:
-        st.session_state.client = {
-            "name": "",
-            "description": "",
-            "email": "",
-        }
+        st.session_state.client = {"name": "", "description": "", "email": ""}
     if "groups" not in st.session_state:
-        st.session_state.groups = [
-            {
-                "name": "Group 1",
-                "pages": [
-                    {"page_name": "", "page_url": "", "page_desc": ""}
-                ],
-            }
-        ]
+        st.session_state.groups = [{"name": "Group 1", "pages": [{"page_name": "", "page_url": "", "page_desc": ""}]}]
 
 def add_group():
     idx = len(st.session_state.groups) + 1
-    st.session_state.groups.append(
-        {"name": f"Group {idx}", "pages": [{"page_name": "", "page_url": "", "page_desc": ""}]}
-    )
+    st.session_state.groups.append({"name": f"Group {idx}", "pages": [{"page_name": "", "page_url": "", "page_desc": ""}]})
 
 def remove_group(i):
     if len(st.session_state.groups) > 1:
@@ -160,24 +135,16 @@ def build_llms_text(client, groups) -> str:
 
 init_state()
 
-# ------------- UI -------------
+# ---- UI ----
 st.title("LLMS.txt generator")
 st.caption("Create and download a structured LLMS.txt with groups and pages. Use +/– to add or remove items. Tool created by someone who doesn't entirely know what he's doing.")
 
 with st.expander("Client details", expanded=True):
     c1, c2 = st.columns([1, 1])
     with c1:
-        st.session_state.client["name"] = st.text_input(
-            "Client name",
-            value=st.session_state.client["name"],
-            placeholder="e.g., Acme Corp"
-        )
+        st.session_state.client["name"] = st.text_input("Client name", value=st.session_state.client["name"], placeholder="e.g., Acme Corp")
     with c2:
-        st.session_state.client["email"] = st.text_input(
-            "Client email",
-            value=st.session_state.client["email"],
-            placeholder="e.g., partnerships@acme.com"
-        )
+        st.session_state.client["email"] = st.text_input("Client email", value=st.session_state.client["email"], placeholder="e.g., partnerships@acme.com")
     st.session_state.client["description"] = st.text_area(
         "Client description (supports multiple lines)",
         value=st.session_state.client["description"],
@@ -228,7 +195,6 @@ for i, group in enumerate(st.session_state.groups):
                     remove_page(i, j)
                     st.rerun()
 
-        # Add Page button at bottom of group
         bottom_buttons = st.columns([1, 1])
         if bottom_buttons[0].button("➕ Page", key=f"add_page_bottom_{i}", help="Add a page to this group"):
             add_page(i)
@@ -240,7 +206,7 @@ if add_cols[0].button("➕ Add group"):
     add_group()
     st.rerun()
 
-# ------------- Output / Download -------------
+# ---- Output / Download ----
 st.markdown("---")
 st.subheader("Preview")
 
