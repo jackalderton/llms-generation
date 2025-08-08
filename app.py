@@ -5,76 +5,29 @@ from datetime import datetime
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
-    /* Global font */
-    html, body, [class*="css"] {
-        font-family: 'Lexend', sans-serif;
-    }
+body, h1, h2, h3, p { font-family: 'Montserrat', sans-serif; }
 
-    /* App background with a gradient */
-    .stApp {
-        background: linear-gradient(135deg, #2B2E4A 0%, #4E4C9C 100%);
-        background-attachment: fixed;
-        color: #ffffff;
-    }
+.st-emotion-cache-1j0k826 {
+    text-align: center;
+    color: #4A90E2;
+    font-size: 3em;
+    padding-bottom: 0.5em;
+    border-bottom: 2px solid #4A90E2;
+    font-family: 'Montserrat', sans-serif;
+}
 
-    /* Lighten form labels and expander headers */
-    label, .stTextInput > label, .stTextArea > label,
-    .stExpanderHeader {
-        color: #f1f1f1 !important;
-        font-weight: 500;
-        font-size: 0.9rem;
-    }
+[data-testid="stSidebar"] { background-color: #1a1e24; border-right: 1px solid #4A90E2; }
+.streamlit-expanderHeader { background-color: #363945; border-radius: 8px; padding: 10px 15px; margin-bottom: 10px; border: none; font-weight: bold; color: #E0E0E0; }
 
-    /* Form field styling: light background, dark text */
-    .stTextInput input,
-    .stTextArea textarea {
-        background-color: #f8f9fa !important;
-        color: #1e1e1e !important;
-        border-radius: 6px !important;
-        border: 1px solid #ddd !important;
-    }
-    /* Fix invisible button text */
-    button[kind="primary"], button[kind="secondary"] {
-        color: #ffffff !important;
-        }
+.stButton>button { width: 100%; background-color: #323640; color: #E0E0E0; border: 1px solid #4A90E2; border-radius: 8px; padding: 10px; transition: background-color 0.3s, color 0.3s; }
+.stButton>button:hover { background-color: #4A90E2; color: white; border-color: white; }
 
-    /* Optional: improve button background and hover */
-    button[kind="primary"] {
-        background-color: #4E4C9C !important;
-        border: none !important;
-        transition: background-color 0.2s ease-in-out;
-    }
-    button[kind="primary"]:hover {
-        background-color: #6E6BB8 !important;
-    }
-    /* Hover state for inputs */
-    .stTextInput input:hover,
-    .stTextArea textarea:hover {
-        border: 1px solid #aaa !important;
-    }
-
-    /* Container cards for groups */
-    div[data-testid="stContainer"] > div {
-        background-color: rgba(255, 255, 255, 0.92);
-        padding: 1.25rem;
-        margin-bottom: 1rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        color: #222222;
-    }
-
-    /* Header and title text */
-    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-        color: #ffffff;
-    }
-
-    /* Caption text */
-    .stCaption {
-        color: #dddddd !important;
-    }
-    </style>
+.st-emotion-cache-1cypcdb { background-color: #323640; }
+.st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a { color: #E0E0E0; }
+.st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a[data-selected="true"] { color: #4A90E2; border-bottom: 3px solid #4A90E2; }
+</style>
     """,
     unsafe_allow_html=True
 )
