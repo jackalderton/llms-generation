@@ -2,37 +2,95 @@ import streamlit as st
 from io import BytesIO
 from datetime import datetime
 
-st.markdown(
-    """
-    <style>
+st.set_page_config(page_title="LLMS.txt Builder", page_icon="JAFavicon.png", layout="wide")
+
+# -------------------------
+# Force Dark Mode CSS
+# -------------------------
+st.markdown("""
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
-body, h1, h2, h3, p { font-family: 'Montserrat', sans-serif; }
+/* Global */
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #0e1117 !important;
+    color: #E0E0E0 !important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Titles and text */
+h1, h2, h3, p, label, span {
+    font-family: 'Montserrat', sans-serif !important;
+    color: #E0E0E0 !important;
+}
 
 .st-emotion-cache-1j0k826 {
     text-align: center;
-    color: #4A90E2;
+    color: #4A90E2 !important;
     font-size: 3em;
     padding-bottom: 0.5em;
     border-bottom: 2px solid #4A90E2;
     font-family: 'Montserrat', sans-serif;
 }
 
-[data-testid="stSidebar"] { background-color: #1a1e24; border-right: 1px solid #4A90E2; }
-.streamlit-expanderHeader { background-color: #363945; border-radius: 8px; padding: 10px 15px; margin-bottom: 10px; border: none; font-weight: bold; color: #E0E0E0; }
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #1a1e24 !important;
+    border-right: 1px solid #4A90E2;
+}
+.streamlit-expanderHeader {
+    background-color: #363945 !important;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: none;
+    font-weight: bold;
+    color: #E0E0E0 !important;
+}
 
-.stButton>button { width: 100%; background-color: #323640; color: #E0E0E0; border: 1px solid #4A90E2; border-radius: 8px; padding: 10px; transition: background-color 0.3s, color 0.3s; }
-.stButton>button:hover { background-color: #4A90E2; color: white; border-color: white; }
+/* Buttons */
+.stButton>button {
+    width: 100%;
+    background-color: #323640 !important;
+    color: #E0E0E0 !important;
+    border: 1px solid #4A90E2;
+    border-radius: 8px;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.stButton>button:hover {
+    background-color: #4A90E2 !important;
+    color: white !important;
+    border-color: white;
+}
 
-.st-emotion-cache-1cypcdb { background-color: #323640; }
-.st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a { color: #E0E0E0; }
-.st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a[data-selected="true"] { color: #4A90E2; border-bottom: 3px solid #4A90E2; }
+/* Tabs (class names may change between Streamlit versions) */
+.st-emotion-cache-1cypcdb {
+    background-color: #323640 !important;
+}
+.st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a {
+    color: #E0E0E0 !important;
+}
+.st-emotion-cache-1cypcdb .st-emotion-cache-1q8867a[data-selected="true"] {
+    color: #4A90E2 !important;
+    border-bottom: 3px solid #4A90E2;
+}
+
+/* Inputs and textareas */
+.stTextInput>div>div>input,
+.stTextArea>div>textarea {
+    background-color: #1a1e24 !important;
+    color: #E0E0E0 !important;
+    border: 1px solid #4A90E2 !important;
+}
+
+/* Code blocks */
+[data-testid="stCodeBlock"] {
+    background-color: #1a1e24 !important;
+    border-radius: 8px;
+}
 </style>
-    """,
-    unsafe_allow_html=True
-)
-
-st.set_page_config(page_title="LLMS.txt Builder", page_icon="JAFavicon.png", layout="wide")
+""", unsafe_allow_html=True)
 
 # ------------- Helpers & State -------------
 def init_state():
@@ -170,7 +228,7 @@ for i, group in enumerate(st.session_state.groups):
                     remove_page(i, j)
                     st.rerun()
 
-        # 👉 Add Page / Remove Page buttons at the BOTTOM of group container
+        # Add Page button at bottom of group
         bottom_buttons = st.columns([1, 1])
         if bottom_buttons[0].button("➕ Page", key=f"add_page_bottom_{i}", help="Add a page to this group"):
             add_page(i)
