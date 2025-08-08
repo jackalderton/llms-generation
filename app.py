@@ -79,7 +79,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.set_page_config(page_title="LLMS.txt Builder", page_icon="364704cc-6899-4fc3-b37c-29dbfd0a4f3f.png", layout="wide")
+st.set_page_config(page_title="LLMS.txt Builder", page_icon="JAFavicon.png", layout="wide")
 
 # ------------- Helpers & State -------------
 def init_state():
@@ -150,8 +150,8 @@ def build_llms_text(client, groups) -> str:
 init_state()
 
 # ------------- UI -------------
-st.title("🤖 LLMS.txt Builder")
-st.caption("Create and download a structured LLMS.txt with groups and pages. Use +/– to add or remove items. Created by Jack Alderton")
+st.title("LLMS.txt generator")
+st.caption("Create and download a structured LLMS.txt with groups and pages. Use +/– to add or remove items. Tool created by someone who doesn't entirely know what he's doing.")
 
 with st.expander("Client details", expanded=True):
     c1, c2 = st.columns([1, 1])
